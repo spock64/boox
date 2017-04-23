@@ -8,6 +8,8 @@ unum = 10000
 cnum = 50
 entnum = 20
 
+print "*** Set up users, channels, entlements ... ***"
+
 con = pymysql.connect(host='localhost',
         user='root',
         password='pjr9npassword',
@@ -74,7 +76,7 @@ try:
             if (i % 100) == 0:
                 percent = i / unum
                 print("*** "+`percent`+"%")
-                print("*** User "+`i`+" Channels ",channels) 
+                print("*** User "+`i`+" Channels ",channels)
 
             for c in channels:
                 s = "INSERT INTO `USERCHANNEL` (`USERID`, `CHANNELID`) VALUES (%s, %s)"
@@ -87,7 +89,3 @@ finally:
 
 con.close()
 print("*** SETUP DONE ***")
-
-
-
-
