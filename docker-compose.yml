@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        volumes:
+            - ./code:/code
+            - ./site.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            - code-network
+    php:
+        image: php:fpm
+        volumes:
+            - ./code:/code
+        networks:
+            - code-network
+
+    mysql:
+        image: 'mariadb'
+        ports:
+            - '3306:3306'
+        volumes:
+            - ./db-data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=pjr9npassword
+        networks:
+            - code-network
+
+    phpmyadmin:
+        image: 'phpmyadmin/phpmyadmin'
+        restart: always
+        ports:
+           - '8081:80'
+        links:
+            - mysql:mysql
+        environment:
+            MYSQL_USERNAME: root
+            MYSQL_ROOT_PASSWORD: pjr9npassword
+            PMA_HOST: mysql
+        networks:
+            - code-network
+
+
+networks:
+    code-network:
+        driver: bridge
