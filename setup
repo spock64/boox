@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "*** Set up ***"
+
+docker-compose stop
+docker-compose rm
+rm -rf db-data
+
+echo "*** Creating environment ***"
+docker-compose up -d
+
+echo "*** Set up db ***"
+sleep 5
+mysql -u root --password=pjr9npassword -h 127.0.0.1 <./sql/setupdb.sql
+
+echo "*** Setting up ***"
+
+./python/setup.py
+
+echo "*** Done ***"
+

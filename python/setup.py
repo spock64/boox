@@ -60,6 +60,9 @@ finally:
 
 try:
     with con.cursor() as cur:
+
+        percent = 0.0
+
         for i in range(1, unum + 1):
             channels = Set([])
 
@@ -68,8 +71,10 @@ try:
                 c = random.randint(1, cnum)
                 if not c in channels:
                     channels.add(c)
-
-            print("*** User "+`i`+" Channels ",channels) 
+            if (i % 100) == 0:
+                percent = i / unum
+                print("*** "+`percent`+"%")
+                print("*** User "+`i`+" Channels ",channels) 
 
             for c in channels:
                 s = "INSERT INTO `USERCHANNEL` (`USERID`, `CHANNELID`) VALUES (%s, %s)"
