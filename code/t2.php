@@ -4,6 +4,9 @@
 
 <?php
 echo "x " . $_GET['x'] . " y " . $_GET['y'];
+
+
+php_info();
 ?>
 
 </body>
