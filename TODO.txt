@@ -1,0 +1,39 @@
+# PJR - TODO for boox performance analysis / learning
+
+* Configure php to add the missing mysql/mariadb packages
+* Look at using https://phpdocker.io to generate a shell Dockerfile / compose file?
+** Check it's not a weird container though ...
+* Add test query
+* Add Authenticate query
+** Add an 'in memory' table for active connections ?
+* Add Login query
+** This is authenticate plus getting context - this would be a list of authorised channels ?
+* Build test Python client for Auth / Login
+* Build loadtester
+** Try AUTH's
+** Needs to be multi-threaded ?
+** or use a shell script to spawn a few of them?
+* Auth could / should work with a hash of the password ?
+* set up DB with both PW and HASH?
+
+*** TUNING
+* Use of nginx cache
+* Use of php opcache
+* Review issues in DB reported by phpmyadmin
+* Difference between bx and nuc performance
+* Try bx/nuc as server with other as client simulator
+
+*** Compare to actual
+* Review real DB schema
+
+*** Functionality
+* Do a proper login setting a DIGEST cookie or whatever
+* Proper session control
+
+*** Issues
+* Does nginx limit the performance of the system?
+** No long running PHP processes
+*** Measure impact?
+** No database persistence
+*** Does a "db proxy" help?
+** Compare to using apache2

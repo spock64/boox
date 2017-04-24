@@ -73,7 +73,7 @@ try:
                 c = random.randint(1, cnum)
                 if not c in channels:
                     channels.add(c)
-            if (i % 100) == 0:
+            if (i % 1000) == 0:
                 percent = i / unum
                 print("*** "+`percent`+"%")
                 print("*** User "+`i`+" Channels ",channels)
