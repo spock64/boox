@@ -11,6 +11,7 @@ services:
         networks:
             - code-network
     php:
+        context: .
         dockerfile: Dockerfile-php
         volumes:
             - ./code:/code
