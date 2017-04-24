@@ -11,10 +11,7 @@ services:
         networks:
             - code-network
     php:
-        build: .
         image: php-fpm
-        context: .
-        dockerfile: Dockerfile-php
         volumes:
             - ./code:/code
         networks:
