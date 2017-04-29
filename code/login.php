@@ -30,12 +30,30 @@
 
          echo '<p>' . $r->num_rows . ' Selected</p><p>';
 
-         while($row = $r->fetch_assoc())
+         $row = $r->fetch_assoc()
+
+         echo 'Id' . $row['ID'] . ' Name ' . $row['NAME'] . ' pw ' . $row['PW'] . '<br>';
+
+         echo 'Done</p>';
+
+         $q_channels = "SELECT * from USERCHANNEL WHERE USERID = '" . $row['ID'] . "'";
+
+         $r_channels = $conn->query($q_channels);
+
+         if(!$r_channels)
          {
-           echo 'Name ' . $row['NAME'] . ' pw ' . $row['PW'] . '<br>';
+           die('could not retrieve user ' . $conn->error);
+         }
+
+         echo '<p>' . $r_channels->num_rows . ' Selected</p><p>';
+
+         while($row = $r_channels->fetch_assoc())
+         {
+           echo 'Channel ' . $row['CHANNELID'] . '<br>';
          }
 
          echo 'Done</p>';
+
 
 	       $conn->close();
 
