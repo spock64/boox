@@ -37,7 +37,7 @@
 
   $js_out = array();
 
-  js_out = $r_channels->fetch_all(MYSQLI_ASSOC);
+  $js_out = $r_channels->fetch_all(MYSQLI_ASSOC);
 
   echo json_encode($js_out);
 
