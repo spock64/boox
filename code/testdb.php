@@ -5,7 +5,7 @@
 
    <body>
       <?php
-         $dbhost = 'mysql';
+         $dbhost = '172.22.0.3';
          $dbuser = 'root';
          $dbpass = 'pjr9npassword';
          $db = 'JTEST';
