@@ -5,7 +5,7 @@
 
    <body>
       <?php
-         $dbhost = 'localhost:3036';
+         $dbhost = '127.0.0.1:3036';
          $dbuser = 'root';
          $dbpass = 'pjr9npassword';
          $db = 'JTEST';
