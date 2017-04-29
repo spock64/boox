@@ -16,8 +16,31 @@
 			              die('Could not connect: ' . $conn->connect_errno);
 				               }
 
-	       echo 'Connected successfully';
+	       echo '<p>Connected successfully</p>';
+
+         $q = <<<SQL
+            SELECT * from 'USERS' LIMIT 100
+SQL;
+
+         $r = $conn->query($q);
+
+         if(!$r)
+         {
+           die('could not retrieve user ' . $conn->error)
+         }
+
+         echo '<p>' . $r->num_rows . ' Selected</p><p>';
+
+         while($row = $r->fetch_assoc())
+         {
+           echo 'User ' . $row['USER'] . 'pw ' . $row['PASSWORD'] . '<br>';
+         }
+
+         echo 'Done</p>';
+
 	       $conn->close();
+
+         echo '<p>DB Closed</p>';
 		   ?>
    </body>
 </html>
