@@ -2,7 +2,7 @@
 
   header("Content-Type: application/json;charset=utf-8");
 
-  include('includes/json.php');
+  // include('includes/json.php');
 
   $dbhost = 'mysql';
   $dbuser = 'root';
