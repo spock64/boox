@@ -1,6 +1,6 @@
 <html>
    <head>
-      <title>Connect to DB </title>
+      <title>Login Test ... </title>
    </head>
 
    <body>
@@ -18,9 +18,8 @@
 
 	       echo '<p>Connected successfully</p>';
 
-         $q = <<<SQL
-            SELECT * from USERS LIMIT 100;
-SQL;
+         $q = "SELECT * from USERS WHERE NAME = '" . $_GET['USER'] . "'";
+
 
          $r = $conn->query($q);
 
