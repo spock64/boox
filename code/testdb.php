@@ -33,7 +33,7 @@ SQL;
 
          while($row = $r->fetch_assoc())
          {
-           echo 'User ' . $row['USER'] . 'pw ' . $row['PASSWORD'] . '<br>';
+           echo 'User ' . $row['USERS'] . 'pw ' . $row['PW'] . '<br>';
          }
 
          echo 'Done</p>';
