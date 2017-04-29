@@ -30,7 +30,7 @@
 
          echo '<p>' . $r->num_rows . ' Selected</p><p>';
 
-         $row = $r->fetch_assoc()
+         $row = $r->fetch_assoc();
 
          echo 'Id' . $row['ID'] . ' Name ' . $row['NAME'] . ' pw ' . $row['PW'] . '<br>';
 
@@ -42,7 +42,7 @@
 
          if(!$r_channels)
          {
-           die('could not retrieve user ' . $conn->error);
+           die('could not retrieve channels ' . $conn->error);
          }
 
          echo '<p>' . $r_channels->num_rows . ' Selected</p><p>';
