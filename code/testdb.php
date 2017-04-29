@@ -19,7 +19,7 @@
 	       echo '<p>Connected successfully</p>';
 
          $q = <<<SQL
-            SELECT * from 'USERS' LIMIT 100;
+            SELECT * from USERS LIMIT 100;
 SQL;
 
          $r = $conn->query($q);
