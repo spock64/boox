@@ -26,7 +26,7 @@ SQL;
 
          if(!$r)
          {
-           die('could not retrieve user ' . $conn->error)
+           die('could not retrieve user ' . $conn->error);
          }
 
          echo '<p>' . $r->num_rows . ' Selected</p><p>';
