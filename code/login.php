@@ -32,7 +32,7 @@
 
          $row = $r->fetch_assoc();
 
-         echo 'Id' . $row['ID'] . ' Name ' . $row['NAME'] . ' pw ' . $row['PW'] . '<br>';
+         echo 'Id ' . $row['ID'] . ' Name ' . $row['NAME'] . ' pw ' . $row['PW'] . '<br>';
 
          echo 'Done</p>';
 
