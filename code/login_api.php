@@ -26,7 +26,7 @@
 
   $row = $r->fetch_assoc();
 
-  $q_channels = "SELECT * from USERCHANNEL WHERE USERID = '" . $row['ID'] . "'";
+  $q_channels = "SELECT CHANNELID from USERCHANNEL WHERE USERID = '" . $row['ID'] . "'";
 
   $r_channels = $conn->query($q_channels);
 
