@@ -5,16 +5,16 @@ import httplib
 import random
 
 # Default host
-HOST = "127.0.0.1"
+HOST = "localhost"
 
 # Default highest number user
 MAX_USER = 10000
 
 i = random.randint(0, MAX_USER-1)
 
-url = HOST+"/login_api.php?USER=PJR"+`i`+"PW=SECRET"+`i`
+url = "/login_api.php?USER=PJR"+`i`+"PW=SECRET"+`i`
 
-conn = httplib.HTTPSConnection(url)
+conn = httplib.HTTPSConnection(HOST)
 
 conn.request("GET", url)
 
