@@ -57,5 +57,4 @@ for i in range(CONS):
 elapsed = time.clock() - start
 
 # Stats ...
-print "success: "+success+ " elapsed: " + elapsed + " per: " + (elapsed / CONS) + 
-    " max: " + _max " min: " + _min
+print "success: "+success+ " elapsed: " + elapsed + " per: " + (elapsed / CONS) + " max: " + _max " min: " + _min
