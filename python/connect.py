@@ -19,12 +19,13 @@ conn = httplib.HTTPConnection(HOST, PORT)
 
 conn.request("GET", url)
 
-r1 = conn.getresponse()
+r = conn.getresponse()
 
-print r1.status, r1.reason
+print r.status, r.reason
 
-
-print r1.read()
+print r.getheaders()
+print r.read()
+print r.version
 
 
 
