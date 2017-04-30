@@ -59,7 +59,7 @@
 
     if($r_channels->num_rows <> 1)
     {
-      die('found multiple rows for channel id '.$row['CHANNELID']);
+      die('found multiple rows for channel id '.$row['CHANNELID'] . ' num = '. $r_channels->num_rows);
     }
 
     // So we have one row of metadata, retrive it and add to $js_out
