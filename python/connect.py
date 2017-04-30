@@ -21,12 +21,9 @@ conn.request("GET", url)
 
 r = conn.getresponse()
 
-print r.status, r.reason
-
-print r.getheaders()
-print r.read()
-print r.version
-
-
+if(r.status != 200):
+    print r.read()
+else
+    print r.status, r.reason
 
 conn.close()
