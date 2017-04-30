@@ -48,7 +48,7 @@ for i in range(CONS):
     e = time.clock() - s
 
     if e < _min:
-        _min = 0
+        _min = e
 
     if e > _max:
         _max = e
@@ -57,4 +57,4 @@ for i in range(CONS):
 elapsed = time.clock() - start
 
 # Stats ...
-print "success: "+`success`+ " elapsed: " + `elapsed` + "/sec:" + `(CONS/elapsed)` + " per: " + `(elapsed / CONS)` + " max: " + `_max` + " min: " + `_min`
+print "success: "+`success`+ " elapsed: " + `elapsed` + " /sec:" + `(CONS/elapsed)` + " per: " + `(elapsed / CONS)` + " max: " + `_max` + " min: " + `_min`
