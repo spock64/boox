@@ -1,4 +1,4 @@
-# bx
+# boox
 
 Setup ...
 
@@ -7,3 +7,6 @@ Setup ...
 3. python/setup.py
 
 :-)
+
+
+170430 - working at about 400 TPS per test process with 4 running
