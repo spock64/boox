@@ -21,7 +21,7 @@ conn.request("GET", url)
 
 r = conn.getresponse()
 
-if r.status != 200:
+if r.status == 200:
     print r.read()
 else:
     print r.status, r.reason
