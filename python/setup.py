@@ -70,7 +70,7 @@ try:
 
             while len(channels) < entnum:
                 # pick a random channel
-                c = random.randint(1, cnum)
+                c = `random.randint(1, cnum)`
                 if not c in channels:
                     channels.add(c)
             if (i % 1000) == 0:
