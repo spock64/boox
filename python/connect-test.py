@@ -13,7 +13,7 @@ _max = 0
 success = 0
 
 # Default number of attempts
-CONS = 1000
+CONS = 20000
 
 # Default host, port
 HOST = "localhost"
