@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 # Makes a connection to a random user
 
 import httplib
