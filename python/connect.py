@@ -13,7 +13,7 @@ MAX_USER = 10000
 
 i = random.randint(0, MAX_USER-1)
 
-url = "/login_api.php?USER=PJR"+`i`+"PW=SECRET"+`i`
+url = "/login_api.php?USER=PJR"+`i`+"&PW=SECRET"+`i`
 
 conn = httplib.HTTPConnection(HOST, PORT)
 
