@@ -57,7 +57,7 @@
       die('could not get metadata for channel id '.$row['CHANNELID']);
     }
 
-    if($r_channels->num_rows <> 1)
+    if($r_meta->num_rows <> 1)
     {
       die('found multiple rows for channel id '.$row['CHANNELID'] . ' num = '. $r_channels->num_rows);
     }
