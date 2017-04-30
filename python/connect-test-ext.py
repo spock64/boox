@@ -25,14 +25,14 @@ PORT = 8080
 MAX_USER = 10000
 
 # Take note of time
-start = time.clock()
+start = time.time()
 
 for i in range(CONS):
     i = random.randint(0, MAX_USER-1)
 
     url = "/login_api_ext.php?USER=PJR"+`i`+"&PW=SECRET"+`i`
 
-    s = time.clock()
+    s = time.time()
 
     conn = httplib.HTTPConnection(HOST, PORT)
 
@@ -47,7 +47,7 @@ for i in range(CONS):
 
     conn.close()
 
-    e = time.clock() - s
+    e = time.time() - s
 
     if e < _min:
         _min = e
@@ -56,7 +56,7 @@ for i in range(CONS):
         _max = e
 
 # Get end time
-elapsed = time.clock() - start
+elapsed = time.time() - start
 
 # Stats ...
 print "success: "+`success`+ " elapsed: " + `elapsed` + " /sec:" + `(CONS/elapsed)` + " per: " + `(elapsed / CONS)` + " max: " + `_max` + " min: " + `_min`
