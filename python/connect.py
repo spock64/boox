@@ -15,7 +15,7 @@ i = random.randint(0, MAX_USER-1)
 
 url = "/login_api.php?USER=PJR"+`i`+"PW=SECRET"+`i`
 
-conn = httplib.HTTPSConnection(HOST, PORT)
+conn = httplib.HTTPConnection(HOST, PORT)
 
 conn.request("GET", url)
 
