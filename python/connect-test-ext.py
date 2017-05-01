@@ -10,31 +10,31 @@ import random
 import time
 import getopt, sys
 
-# -----------------------------------------------------------------------------
-OPT_STR = "h:p:u:c:vx"
-OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "verbose","help"]
+def init():
+    OPT_STR = "h:p:u:c:vx"
+    OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "verbose","help"]
 
-# -----------------------------------------------------------------------------
-# stats - frig
-_min = 1000
-_max = 0
-success = 0
+    # -------------------------------------------------------------------------
+    # stats - frig
+    _min = 1000
+    _max = 0
+    success = 0
 
-# -----------------------------------------------------------------------------
-# Params ...
+    # -------------------------------------------------------------------------
+    # Params ...
 
-# Default number of attempts
-CONS = 200
+    # Default number of attempts
+    CONS = 200
 
-# Default host, port
-HOST = "localhost"
-PORT = 8080
+    # Default host, port
+    HOST = "localhost"
+    PORT = 8080
 
-# Default highest number user id
-MAX_USER = 10000
+    # Default highest number user id
+    MAX_USER = 10000
 
-# RT Flags
-VERBOSE = False
+    # RT Flags
+    VERBOSE = False
 
 # -----------------------------------------------------------------------------
 def usage():
@@ -135,6 +135,8 @@ def run_test():
 # -----------------------------------------------------------------------------
 # Will be expanded to add multiprocess working
 def main():
+
+    init()
     process_params()
 
     # for now ...
