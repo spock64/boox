@@ -9,11 +9,11 @@ import httplib
 import random
 import time
 import getopt, sys
+import os
+from multiprocessing import Pool
 
-OPT_STR = "h:p:u:c:vx"
-OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "verbose","help"]
-
-# -------------------------------------------------------------------------
+OPT_STR = "h:p:u:c:t:vx"
+OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "threads=", "verbose", "help"]
 
 
 # -------------------------------------------------------------------------
@@ -29,6 +29,9 @@ PORT = 8080
 # Default highest number user id
 MAX_USER = 10000
 
+# Number of processes to running
+THREADS = 1
+
 # RT Flags
 VERBOSE = False
 
@@ -43,7 +46,9 @@ def usage():
     print "\t-u|--user max-user-id"
     print "\t\tMaximum User ID to probe"
     print "\t-c|--connections total-connections"
-    print "\t\tTotal number of connections required"
+    print "\t\tTotal number of connections required PER THREAD"
+    print "\t|--threads number-of-threads"
+    print "\t\tNumber of threads to run"
     print "\t-v"
     print "\t\tVerbose mode"
     print "\t-x"
@@ -52,7 +57,7 @@ def usage():
 # -----------------------------------------------------------------------------
 def process_params():
     # Process command line arguments
-    global VERBOSE, HOST, PORT, MAX_USER, CONS
+    global VERBOSE, HOST, PORT, MAX_USER, CONS, THREADS
 
     EXIT_POST_PARAMS = False
 
@@ -64,6 +69,7 @@ def process_params():
         usage()
         sys.exit(2)
 
+    # PJR - should validate the integer conversion ?
     for o, a in opts:
         if o in ("-v","--verbose"):
             VERBOSE = True
@@ -78,6 +84,8 @@ def process_params():
             MAX_USER = int(a)
         elif o in ("-c", "--connections"):
             CONS = int(a)
+        elif o in ("-t", "--threads"):
+            THREADS = int(a)
         elif o in ("-x"):
             EXIT_POST_PARAMS = True
         else:
@@ -91,9 +99,18 @@ def process_params():
         sys.exit()
 
 # -----------------------------------------------------------------------------
-def run_test():
+def process_info(title):
+    print(title)
+    print('module name:', __name__)
+    print('parent process:', os.getppid())
+    print('process id:', os.getpid())
+
+# -----------------------------------------------------------------------------
+def run_test(name):
 
     global VERBOSE, HOST, PORT, MAX_USER, CONS
+
+    process_info(name)
 
     # stats - frig
     _min = 1000
@@ -165,13 +182,30 @@ def run_test():
 # Will be expanded to add multiprocess working
 def main():
 
-    global VERBOSE, HOST, PORT, MAX_USER, CONS
+    global THREADS
 
     process_params()
 
-    # for now ...
-    print "Connect test calling login_api_ext"
-    run_test()
+    if THREADS > 1:
+
+        print "Starting "+`THREADS`+" threads"
+
+        p = Pool(THREADS)
+
+        for i in range(THREADS):
+            rc = p.apply_async(run_test, ("Thread "+`i`,))
+
+        print "Waiting for threads to complete"
+        p.close()
+        p.join()
+
+        print "*** All done ***"
+
+    else:
+
+        # just run one ...
+        print "Connect test calling login_api_ext"
+        run_test("Single thread")
 
 # -----------------------------------------------------------------------------
 # Entrypoint
