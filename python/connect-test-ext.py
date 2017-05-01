@@ -6,6 +6,10 @@
 import httplib
 import random
 import time
+import getopt, sys
+
+OPT_STR = "h:p:u:c:vx"
+OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "verbose","help"]
 
 print "Connect test calling login_api_ext"
 
@@ -15,7 +19,7 @@ _max = 0
 success = 0
 
 # Default number of attempts
-CONS = 20000
+CONS = 200
 
 # Default host, port
 HOST = "localhost"
@@ -23,6 +27,57 @@ PORT = 8080
 
 # Default highest number user
 MAX_USER = 10000
+
+VERBOSE = False
+EXIT_POST_PARAMS = False
+
+# Process command line arguments
+try:
+    opts, args = getopt.getopt(sys.argv[1:], OPT_STR, OPT_STR_EXT)
+except getopt.GetoptError as err:
+    # print help information and exit:
+    print str(err)  # will print something like "option -a not recognized"
+    # usage()
+    sys.exit(2)
+
+for o, a in opts:
+    if o in ("-v","--verbose"):
+        VERBOSE = True
+    elif o == "--help":
+        print "**** PJR-A Simple Login performance evaluation"
+        print "**** Params:"
+        print "\t-h|--host hostname"
+        print "\t\tHostname of API server"
+        print "\t-p|--port port"
+        print "\t\tPort number of API server"
+        print "\t-u|--user max-user-id"
+        print "\t\tMaximum User ID to probe"
+        print "\t-c|--connections total-connections"
+        print "\t\tTotal number of connections required"
+        print "\t-v"
+        print "\t\tVerbose mode"
+        print "\t-x"
+        print "\t\tValidate parameters and exit"
+        sys.exit()
+    elif o in ("-h", "--host"):
+        HOST = a
+    elif o in ("-p", "--port"):
+        PORT = int(a)
+    elif o in ("-u", "--user"):
+        MAX_USER = int(a)
+    elif o in ("-c", "--connections"):
+        CONS = int(a)
+    elif o in ("-x"):
+        EXIT_POST_PARAMS = True
+    else:
+        assert False, "unhandled option"
+
+if VERBOSE:
+    print "Host:port "+HOST+":"+`PORT`+" Max UID "+`MAX_USER`+" Connections "+`CONS`
+
+if EXIT_POST_PARAMS:
+    print "Exiting as requested"
+    sys.exit()
 
 # Take note of time
 start = time.time()
