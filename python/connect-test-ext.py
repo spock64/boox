@@ -10,31 +10,27 @@ import random
 import time
 import getopt, sys
 
-def init():
-    OPT_STR = "h:p:u:c:vx"
-    OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "verbose","help"]
+OPT_STR = "h:p:u:c:vx"
+OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "verbose","help"]
 
-    # -------------------------------------------------------------------------
-    # stats - frig
-    _min = 1000
-    _max = 0
-    success = 0
+# -------------------------------------------------------------------------
 
-    # -------------------------------------------------------------------------
-    # Params ...
 
-    # Default number of attempts
-    CONS = 200
+# -------------------------------------------------------------------------
+# Params ...
 
-    # Default host, port
-    HOST = "localhost"
-    PORT = 8080
+# Default number of attempts
+CONS = 200
 
-    # Default highest number user id
-    MAX_USER = 10000
+# Default host, port
+HOST = "localhost"
+PORT = 8080
 
-    # RT Flags
-    VERBOSE = False
+# Default highest number user id
+MAX_USER = 10000
+
+# RT Flags
+VERBOSE = False
 
 # -----------------------------------------------------------------------------
 def usage():
@@ -56,6 +52,7 @@ def usage():
 # -----------------------------------------------------------------------------
 def process_params():
     # Process command line arguments
+    global VERBOSE, HOST, PORT, MAX_USER, CONS
 
     EXIT_POST_PARAMS = False
 
@@ -95,19 +92,49 @@ def process_params():
 
 # -----------------------------------------------------------------------------
 def run_test():
+
+    global VERBOSE, HOST, PORT, MAX_USER, CONS
+
+    # stats - frig
+    _min = 1000
+    _max = 0
+    success = 0
+    con_fails = 0
+    req_fails = 0
+
     # Take note of time
     start = time.time()
 
-    for i in range(CONS):
+    for j in range(CONS):
         i = random.randint(0, MAX_USER-1)
 
         url = "/login_api_ext.php?USER=PJR"+`i`+"&PW=SECRET"+`i`
 
         s = time.time()
 
-        conn = httplib.HTTPConnection(HOST, PORT)
+        try:
+            conn = httplib.HTTPConnection(HOST, PORT)
+        except:
+            # connection failed
+            con_fails += 1
 
-        conn.request("GET", url)
+            if j == 0:
+                # Fail on first conn failure ...
+                print "Failed to connect"
+                sys.exit(1)
+            else:
+                continue
+
+        try:
+            conn.request("GET", url)
+        except:
+            req_fails += 1
+
+            if j == 0:
+                print "Failed to hit API or connect"
+                sys.exit(1)
+            else:
+                continue
 
         r = conn.getresponse()
 
@@ -131,12 +158,15 @@ def run_test():
 
     # Stats ...
     print "success: "+`success`+ " elapsed: " + `elapsed` + " /sec:" + `(CONS/elapsed)` + " per: " + `(elapsed / CONS)` + " max: " + `_max` + " min: " + `_min`
+    if success != CONS:
+        print "failed connections "+`con_fails`+" request fails "+`req_fails`
 
 # -----------------------------------------------------------------------------
 # Will be expanded to add multiprocess working
 def main():
 
-    init()
+    global VERBOSE, HOST, PORT, MAX_USER, CONS
+
     process_params()
 
     # for now ...
