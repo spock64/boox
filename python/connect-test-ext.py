@@ -10,7 +10,7 @@ import random
 import time
 import getopt, sys
 import os
-from multiprocessing import Pool
+from multiprocessing import Pool, Process
 
 OPT_STR = "h:p:u:c:t:vx"
 OPT_STR_EXT = ["host=", "port=", "user=", "connections=", "threads=", "verbose", "help"]
@@ -184,22 +184,41 @@ def main():
 
     global THREADS
 
+    procs = []
+
     process_params()
 
     if THREADS > 1:
 
         print "Starting "+`THREADS`+" threads"
 
-        p = Pool(THREADS)
-
         for i in range(THREADS):
-            rc = p.apply_async(run_test, ("Thread "+`i`,))
+            n = "Thread "+`i`
+            p = Process(target = run_test, args = (n,))
+            procs.append(p)
+            p.start()
 
         print "Waiting for threads to complete"
-        p.close()
-        p.join()
 
-        print "*** All done ***"
+        for i in range(THREADS):
+            procs[i].join()
+
+        print "Done"
+
+        if 0:
+
+            print "Starting "+`THREADS`+" threads"
+
+            p = Pool(THREADS)
+
+            for i in range(THREADS):
+                rc = p.apply_async(run_test, ("Thread "+`i`,))
+
+            print "Waiting for threads to complete"
+            p.close()
+            p.join()
+
+            print "*** All done ***"
 
     else:
 
